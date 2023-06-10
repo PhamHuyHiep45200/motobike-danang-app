@@ -1,6 +1,17 @@
-import { HistoryOutlined, KeyOutlined, LogoutOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+  HistoryOutlined,
+  HomeOutlined,
+  KeyOutlined,
+  LogoutOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 
 export const listHeader = [
+  {
+    icon: <HomeOutlined />,
+    name: "Trang chủ",
+    path: "/",
+  },
   {
     icon: <SmileOutlined />,
     name: "Tài Khoản Của Tôi",

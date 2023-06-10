@@ -1,9 +1,8 @@
 import { CreateContext } from "@/context/ContextProviderGlobal";
 import { listHeader } from "@/data/header";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Drawer, Input } from "antd";
-import Image from "next/image";
-import React, { useContext, useLayoutEffect, useState } from "react";
+import { Drawer } from "antd";
+import React, { useContext, useEffect, useState } from "react";
 import ModalCheckLogin from "./ModalCheckLogin";
 import { useRouter } from "next/router";
 
@@ -34,7 +33,11 @@ function Header() {
     router.push(path);
     onClose();
   };
-  useLayoutEffect(() => {
+  const handleSearch =()=>{
+    router.push('/search')
+  }
+
+  useEffect(() => {
     function updatePosition() {
       setPosition(window.pageYOffset);
     }
@@ -48,7 +51,7 @@ function Header() {
       className="flex items-center justify-between fixed top-0 right-0 left-0 px-5 z-[1]"
       style={{
         height: "var(--header)",
-        backgroundColor: position > 30 ? `rgba(0,0,0,0.5)` : `rgba(0,0,0,0)`,
+        backgroundColor: position < 30 && router.pathname ==='/' ? `rgba(0,0,0,0)` : `rgba(0,0,0,0.5)`,
         transition: "all 0.3s ease",
       }}
     >
@@ -60,7 +63,7 @@ function Header() {
               className="border-none outline-none pl-[15px]"
             />
             <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
-              <SearchOutlined className="text-[18px] text-primary" />
+              <SearchOutlined className="text-[18px] text-primary" onClick={handleSearch}/>
             </div>
           </div>
         </div>
