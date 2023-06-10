@@ -23,3 +23,14 @@
   top: 0;
   bottom: 0;
 }
+
+.textNameMoto{
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+:where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-first .anticon, :where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-second .anticon{
+  vertical-align: baseline;
+}

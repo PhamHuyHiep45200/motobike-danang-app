@@ -5,7 +5,7 @@ import FormChangePass from '@/components/pages/change-password/FormChangePass'
 
 function page() {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center mt-[100px]">
       <CardBase>
         <div>
           <h1 className="text-primary font-bold text-[20px] text-center">
