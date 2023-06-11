@@ -1,12 +1,21 @@
-import { Card } from 'antd'
-import React from 'react'
+import { Card } from "antd";
+import React from "react";
 
-function CardBase({children}) {
+function CardBase({ children }) {
   return (
-    <Card title={false} bordered={false} style={{ width: 300, boxShadow:'0 0 5px 3px #eaeaea' }}>
+    <Card
+      title={false}
+      bordered={false}
+      style={{
+        width: 300,
+        boxShadow: "0 0 5px 3px #eaeaea",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
       {children}
     </Card>
-  )
+  );
 }
 
-export default CardBase
+export default CardBase;

@@ -24,21 +24,21 @@ export default function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    router.events.on("routeChangeStart", handleStartRouter);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
+    router.events.on("routeChangeStart", loadingStart);
+    router.events.on("routeChangeComplete", loadingEnd);
+    router.events.on("routeChangeError", loadingEnd);
 
     return () => {
-      router.events.off("routeChangeStart", handleStartRouter);
-      router.events.off("routeChangeComplete", handleComplete);
-      router.events.off("routeChangeError", handleComplete);
+      router.events.off("routeChangeStart", loadingStart);
+      router.events.off("routeChangeComplete", loadingEnd);
+      router.events.off("routeChangeError", loadingEnd);
     };
   }, [router, router.events]);
-  const handleStartRouter = () => {
+  const loadingStart = () => {
     setLoading(true);
   };
 
-  const handleComplete = () => {
+  const loadingEnd = () => {
     setLoading(false);
   };
   const getMe = async () => {
@@ -46,12 +46,11 @@ export default function MyApp({ Component, pageProps }) {
       const response = await userGetMe(localStorage.getItem("userId"));
       if (response.data && response.data.status === 200) {
         setUser(response.data.data);
-        router.push("/");
       } else {
-        // router.push("/");
+        router.push("/");
       }
     } catch (error) {
-      // router.push("/login");
+      router.push("/");
     }
   };
   const setUserData = (data) => {
@@ -76,9 +75,11 @@ export default function MyApp({ Component, pageProps }) {
       setUserData,
       successNoti,
       errorNoti,
+      loadingStart,
+      loadingEnd
     };
   }, [user]);
-  // Use the layout defined at the page level, if available
+  
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (

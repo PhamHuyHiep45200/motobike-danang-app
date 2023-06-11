@@ -1,9 +1,10 @@
-import CardBase from "@/components/common/CardBase";
 import { EyeOutlined, SketchOutlined, StarOutlined } from "@ant-design/icons";
 import { Card, Carousel, Image, Rate } from "antd";
+import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 
-function ListMoto({ type }) {
+function ListMoto({ type, moto }) {
+  const router=useRouter()
   const icon = useMemo(() => {
     switch (type) {
       case "star":
@@ -24,9 +25,12 @@ function ListMoto({ type }) {
         return "#07c2b2";
     }
   }, [type]);
+  const handleRedirect = (id)=>{
+    router.push(`/detail/${id}`)
+  }
   return (
     <Carousel draggable dots={false}>
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((e) => (
+      {moto.map((e) => (
         <div key={e} className="w-full">
           <div className="w-[90%] h-[300px] flex justify-center m-auto items-center">
             <Card
@@ -42,7 +46,9 @@ function ListMoto({ type }) {
             >
               <Image
                 alt=""
-                src="/image/list-moto.webp"
+                src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${
+                  JSON.parse(e.listThumbnail)[0]
+                }`}
                 wrapperStyle={{ width: "100%" }}
                 className="!h-[180px]"
               />
@@ -59,8 +65,11 @@ function ListMoto({ type }) {
                   </div>
                   <Rate />
                 </div>
-                <span className="textNameMoto font-bold text-[14px] text-[black]">
-                  Xe máy điện XMEN CAPTAIN 2 giảm sóc đời mới
+                <span
+                  className="textNameMoto font-bold text-[14px] text-[black]"
+                  onClick={()=>handleRedirect(e.id)}
+                >
+                  {e.name}
                 </span>
               </div>
             </Card>

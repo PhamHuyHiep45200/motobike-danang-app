@@ -27,7 +27,7 @@ function Header() {
     setOpen(false);
   };
   const redirect = (path) => {
-    if (path === "/auth/login") {
+    if (path === "/login") {
       localStorage.clear();
     }
     router.push(path);

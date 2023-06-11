@@ -20,7 +20,7 @@ export const listHeader = [
   {
     icon: <HistoryOutlined />,
     name: "Lịch Sử Thuê Xe",
-    path: "/history",
+    path: "/order",
   },
   {
     icon: <KeyOutlined />,

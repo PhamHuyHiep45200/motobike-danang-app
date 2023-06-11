@@ -34,3 +34,6 @@
 :where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-first .anticon, :where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-second .anticon{
   vertical-align: baseline;
 }
+:where(.css-dev-only-do-not-override-s79zgs).ant-btn.ant-btn-sm{
+  background-color: #07c2b2;
+}

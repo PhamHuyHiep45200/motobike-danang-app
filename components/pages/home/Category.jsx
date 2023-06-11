@@ -2,7 +2,7 @@ import { Carousel, Image } from "antd";
 import React from "react";
 import { useRouter } from "next/router";
 
-function Category() {
+function Category({category}) {
   const router = useRouter();
   //   const handleRedirectLink = (link) => {
   //     router.push(link);
@@ -13,12 +13,12 @@ function Category() {
         HÃNG XE
       </span>
       <Carousel draggable dots={false} slidesPerRow={4}>
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((e) => (
-          <div key={e} className="w-[50px] h-[50px]">
+        {category.map((e) => (
+          <div key={e.id} className="w-[50px] h-[50px]">
             <div className="w-full h-full flex justify-center items-center">
               <Image
                 alt="os"
-                src="/image/category-honda.png"
+                src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${e.thumnail}`}
                 height={40}
                 width={40}
                 preview={false}
