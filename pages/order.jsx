@@ -1,12 +1,31 @@
-import Order from '@/components/pages/order'
-import React from 'react'
+import Order from "@/components/pages/order";
+import { CreateContext } from "@/context/ContextProviderGlobal";
+import { getOrderById } from "@/service/order";
+import React, { useContext, useEffect, useState } from "react";
 
-function order() {
+function OrderPage() {
+  const { errorNoti, loadingStart, loadingEnd } = useContext(CreateContext);
+  const [order, setOrder] = useState([]);
+
+  const getOrderDat5a = async () => {
+    loadingStart();
+    const res = await getOrderById();
+    if (res.data.status === 200) {
+      setOrder(res.data.data);
+      loadingEnd();
+    } else {
+      errorNoti("đã có lỗi xảy ra");
+      loadingEnd();
+    }
+  };
+  useEffect(()=>{
+    getOrderDat5a()
+  },[])
   return (
-    <div className='mt-[80px]'>
-        <Order/>
+    <div className="mt-[80px]">
+      <Order order={order}/>
     </div>
-  )
+  );
 }
 
-export default order
+export default OrderPage;

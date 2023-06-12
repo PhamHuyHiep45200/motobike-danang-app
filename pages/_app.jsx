@@ -4,9 +4,11 @@ import { userGetMe } from "@/service/user";
 import "@/styles/globals.css";
 import { LoadingOutlined } from "@ant-design/icons";
 import { ConfigProvider, Spin, message } from "antd";
+import moment from "moment";
+import 'moment/locale/vi';
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
-
+moment.locale('vi')
 const antIcon = <LoadingOutlined style={{ fontSize: 34 }} spin />;
 
 export default function MyApp({ Component, pageProps }) {
