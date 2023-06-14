@@ -9,7 +9,8 @@ function OrderPage() {
 
   const getOrderDat5a = async () => {
     loadingStart();
-    const res = await getOrderById();
+    const id = localStorage.getItem('userId');
+    const res = await getOrderById(id);
     if (res.data.status === 200) {
       setOrder(res.data.data);
       loadingEnd();

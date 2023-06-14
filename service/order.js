@@ -6,8 +6,8 @@ export async function createOrder(data) {
     data
   });
 }
-export async function getOrderById() {
-  return request(`/order`, {
+export async function getOrderById(id) {
+  return request(`/order/${id}`, {
     method: "GET",
   });
 }
