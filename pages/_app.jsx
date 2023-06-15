@@ -12,13 +12,15 @@ moment.locale('vi')
 const antIcon = <LoadingOutlined style={{ fontSize: 34 }} spin />;
 
 export default function MyApp({ Component, pageProps }) {
+  
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("userId")) {
+    const idUser = localStorage.getItem("userId")
+    if (idUser) {
       getMe();
     } else {
       setUser(null);

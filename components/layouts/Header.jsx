@@ -1,7 +1,7 @@
 import { CreateContext } from "@/context/ContextProviderGlobal";
 import { listHeader } from "@/data/header";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Drawer } from "antd";
+import { Drawer, Image } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import ModalCheckLogin from "./ModalCheckLogin";
 import { useRouter } from "next/router";
@@ -33,9 +33,9 @@ function Header() {
     router.push(path);
     onClose();
   };
-  const handleSearch =()=>{
-    router.push('/search')
-  }
+  const handleSearch = () => {
+    router.push("/search");
+  };
 
   useEffect(() => {
     function updatePosition() {
@@ -51,22 +51,39 @@ function Header() {
       className="flex items-center justify-between fixed top-0 right-0 left-0 px-5 z-[1]"
       style={{
         height: "var(--header)",
-        backgroundColor: position < 30 && router.pathname ==='/' ? `rgba(0,0,0,0)` : `rgba(0,0,0,0.5)`,
+        backgroundColor:
+          position < 30 && router.pathname === "/"
+            ? `rgba(0,0,0,0)`
+            : `rgba(0,0,0,0.5)`,
         transition: "all 0.3s ease",
       }}
     >
-      <div>
-        <div className="w-[250px] h-[70px] flex items-center">
-          <div className="flex items-center bg-[#fff] h-[35px] rounded-[15px] overflow-hidden">
-            <input
-              placeholder="Tìm kiếm xe"
-              className="border-none outline-none pl-[15px]"
-            />
-            <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
-              <SearchOutlined className="text-[18px] text-primary" onClick={handleSearch}/>
+      <div className="flex items-center space-x-[10px]">
+        <div>
+          <div className="h-[70px] flex items-center">
+            <div className="flex items-center bg-[#fff] h-[35px] rounded-[15px] overflow-hidden">
+              <input
+                placeholder="Tìm kiếm xe"
+                className="border-none outline-none pl-[15px]"
+              />
+              <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
+                <SearchOutlined
+                  className="text-[18px] text-primary"
+                  onClick={handleSearch}
+                />
+              </div>
             </div>
           </div>
         </div>
+        <Image
+          src="/image/icons8-map-64.png"
+          alt=""
+          width={30}
+          height={30}
+          preview={false}
+          className="cursor-pointer"
+          onClick={()=>redirect('/info-company')}
+        />
       </div>
       <div
         className="w-[30px] h-[30px] rounded-full overflow-hidden border-[2px] border-primary flex items-center justify-center cursor-pointer"
