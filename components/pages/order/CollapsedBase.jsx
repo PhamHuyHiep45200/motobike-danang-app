@@ -3,6 +3,16 @@ import moment from "moment";
 import React, { useMemo } from "react";
 
 function CollapsedBase({ data }) {
+  const getStatusConfirm = () => {
+    switch (data.statusOrder) {
+      case "INPROGRESS":
+        return "PAID";
+      case "PAID":
+        return "RECEIVED";
+      default:
+        return 0;
+    }
+  };
   const getStatus = () => {
     switch (data.statusOrder) {
       case "INPROGRESS":
@@ -11,21 +21,18 @@ function CollapsedBase({ data }) {
             Đang Giao Xe
           </Tag>
         );
-
       case "PAID":
         return (
           <Tag color="purple" className="font-bold">
             Đã Nhận Xe
           </Tag>
         );
-
       case "RECEIVED":
         return (
           <Tag color="green" className="font-bold">
             Đã Trả Xe
           </Tag>
         );
-
       default:
         return (
           <Tag color="magenta" className="font-bold">
@@ -61,13 +68,17 @@ function CollapsedBase({ data }) {
         ),
         children: (
           <div>
-            <QRCode value="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" />
+            {(data.statusOrder === "INPROGRESS" ||
+              data.statusOrder === "PAID") && (
+              <QRCode
+                value={`http://localhost:3000/order-confirm?id=${data.id}&&status=${getStatusConfirm()}`}
+              />
+            )}
           </div>
         ),
       },
     ];
   }, [data]);
-  console.log(data);
   return (
     <Collapse
       expandIconPosition="right"
