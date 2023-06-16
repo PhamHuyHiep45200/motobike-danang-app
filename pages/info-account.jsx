@@ -1,6 +1,6 @@
 import CardBase from "@/components/common/CardBase";
 import AccountEdit from "@/components/pages/info-account/AccountEdit";
-import AccountInfo from "@/components/pages/info-account/accountInfo";
+import AccountInfo from "@/components/pages/info-account/AccountInfo";
 import React, { useState } from "react";
 
 function Page() {
