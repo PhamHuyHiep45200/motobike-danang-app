@@ -41,7 +41,7 @@ function Detail({ detail }) {
         <span className="text-[18px] font-bold">{detail.name}</span>
         <div>
           <span className="flex items-center mb-[4px]">
-            {detail.starMoto} <StarFilled className="text-[#ffb043] mr-[4px]" />{" "}
+            {detail.starMoto ?? 0} <StarFilled className="text-[#ffb043] mr-[4px]" />{" "}
             /
             <span className="ml-[5px] text-[#333]">
               {detail?.rate?.length ?? 0} đánh giá

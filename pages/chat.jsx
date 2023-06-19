@@ -17,7 +17,6 @@ function Chat() {
   }, []);
 
   const handleSendMessage = (e) => {
-    console.log(e)
     socket.emit("send-chat", e);
   };
   return <div className="mt-[60px]">

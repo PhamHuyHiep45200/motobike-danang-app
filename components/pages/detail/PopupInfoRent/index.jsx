@@ -31,7 +31,6 @@ function PopupInfoRent({
         idMoto: data.id,
         idUserReceiver: user.id,
       };
-      console.log(dataOrder);
       const res = await createOrder(dataOrder);
       if (res.data && res.data.status === 200) {
         successNoti(

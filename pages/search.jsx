@@ -17,7 +17,6 @@ function SearchPage() {
     } catch (error) {}
   };
   const searchName = async (name)=>{
-    console.log(name)
     try {
       const res = await getMoto({name});
       if (res.data && res.data.data) {
