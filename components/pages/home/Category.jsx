@@ -9,7 +9,7 @@ function Category({category}) {
     };
   return (
     <div className="border-b-[2px] border-t-[2px] relative border-[#ff8c27]">
-      <span className="absolute bottom-[80%] left-[50%] translate-x-[-50%] text-[22px] font-bold text-primary font-serif">
+      <span className="absolute bottom-[90%] left-[50%] translate-x-[-50%] text-[22px] font-bold text-primary font-serif">
         HÃNG XE
       </span>
       <Carousel draggable dots={false} slidesPerRow={4}>

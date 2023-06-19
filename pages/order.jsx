@@ -7,11 +7,11 @@ function OrderPage() {
   const { errorNoti, loadingStart, loadingEnd } = useContext(CreateContext);
   const [order, setOrder] = useState([]);
 
-  const getOrderDat5a = async () => {
+  const getOrderData = async () => {
     loadingStart();
     const id = localStorage.getItem('userId');
     const res = await getOrderById(id);
-    if (res.data.status === 200) {
+    if (res.data && res.data.status === 200) {
       setOrder(res.data.data);
       loadingEnd();
     } else {
@@ -20,11 +20,11 @@ function OrderPage() {
     }
   };
   useEffect(()=>{
-    getOrderDat5a()
+    getOrderData()
   },[])
   return (
     <div className="mt-[80px]">
-      <Order order={order}/>
+      <Order order={order} refreshData={getOrderData}/>
     </div>
   );
 }

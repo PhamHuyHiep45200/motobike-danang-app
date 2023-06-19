@@ -33,7 +33,7 @@ function PopupInfoRent({
       };
       console.log(dataOrder);
       const res = await createOrder(dataOrder);
-      if (res.data.status === 200) {
+      if (res.data && res.data.status === 200) {
         successNoti(
           "Đặt thuê xe thành công! Vui lòng vào lịch sử Order để xe, thông tin chi tiết"
         );

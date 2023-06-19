@@ -1,5 +1,5 @@
 import { StarFilled } from "@ant-design/icons";
-import { Image, Rate } from "antd";
+import { Avatar, Image, Rate } from "antd";
 import { useRouter } from "next/router";
 import React, { useContext, useMemo, useState } from "react";
 import PopupInfoRent from "./PopupInfoRent";
@@ -41,11 +41,14 @@ function Detail({ detail }) {
         <span className="text-[18px] font-bold">{detail.name}</span>
         <div>
           <span className="flex items-center mb-[4px]">
-            4.5 <StarFilled className="text-[#ffb043] mr-[4px]" /> /
-            <span className="ml-[5px] text-[#333]">20 đánh giá</span>
+            {detail.starMoto} <StarFilled className="text-[#ffb043] mr-[4px]" />{" "}
+            /
+            <span className="ml-[5px] text-[#333]">
+              {detail?.rate?.length ?? 0} đánh giá
+            </span>
           </span>
           <span className="text-[#333]">
-            Số lượng xe có sẵn : {detail.quantity}
+            Số lượng xe có sẵn : {detail.quantityMoto}
           </span>
           <div
             className="flex items-center mt-5 h-[45px] justify-center text-[white] font-medium text-[14px] bg-primary flex-1 rounded-[4px]"
@@ -89,6 +92,27 @@ function Detail({ detail }) {
               {detail.description}
             </span>
           </div>
+        </div>
+      </div>
+      <div className="px-5 my-5">
+        <div className="bg-[#eaeaea] rounded-[4px] px-[10px] py-[5px] font-semibold text-[18px] text-[#555]">
+          ĐÁNH GIÁ XE
+        </div>
+        <div className="flex flex-col space-x-[10px] mt-[10px]">
+        {detail?.rate?.map((e) => (
+          <div key={e.id} className="flex">
+            <div>
+              <Avatar>{e?.UserReceiverOrder?.name?.[0]}</Avatar>
+            </div>
+            <div className="ml-[8px]">
+              <div className="flex items-center leading-[1]">
+                <span className="text-[16px] font-bold text-[#444]] mr-[10px]">{e?.UserReceiverOrder?.name}</span>
+                <Rate value={e.star}/>
+              </div>
+              <span className="text-[#555]">{e.comment}</span>
+            </div>
+          </div>
+        ))}
         </div>
       </div>
       <PopupInfoRent

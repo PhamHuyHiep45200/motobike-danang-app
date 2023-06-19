@@ -8,6 +8,7 @@ function Search({ data }) {
   const redirectDetail = (id) => {
     router.push(`/detail/${id}`);
   };
+  console.log(data)
   return (
     <div className="mt-[70px] px-5 mb-[100px]">
       <div className="h-[35px] border-b flex items-center text-[#000] text-[16px]">
@@ -31,7 +32,7 @@ function Search({ data }) {
             >
               <Image
                 alt=""
-                src="/image/list-moto.webp"
+                src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${JSON.parse(e.listThumbnail)[0]}`}
                 wrapperStyle={{ width: "100%" }}
                 className="!h-[180px]"
               />
@@ -39,10 +40,10 @@ function Search({ data }) {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center">
                     <span className="text-[12px] ml-[6px] text-primary underline underline-offset-2 font-medium">
-                      100
+                      Lượt thuê {e.Order.length}
                     </span>
                   </div>
-                  <Rate />
+                  <Rate value={e.starMoto}/>
                 </div>
                 <span
                   className="textNameMoto font-bold text-[14px] text-[black]"

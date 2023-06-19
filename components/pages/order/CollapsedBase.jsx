@@ -1,14 +1,31 @@
-import { Collapse, Image, QRCode, Tag } from "antd";
+import { CreateContext } from "@/context/ContextProviderGlobal";
+import { rateMoto } from "@/service/moto";
+import { CommentOutlined, StarFilled } from "@ant-design/icons";
+import {
+  Button,
+  Collapse,
+  Form,
+  Image,
+  Input,
+  Modal,
+  QRCode,
+  Rate,
+  Tag,
+} from "antd";
 import moment from "moment";
-import React, { useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+const { TextArea } = Input;
+function CollapsedBase({ data, refreshData }) {
+  const { errorNoti, successNoti } = useContext(CreateContext);
+  const [open, setOpen] = useState(false);
+  const [checkComment, setCheckComment] = useState(true);
 
-function CollapsedBase({ data }) {
   const getStatusConfirm = () => {
     switch (data.statusOrder) {
       case "INPROGRESS":
-        return "PAID";
-      case "PAID":
         return "RECEIVED";
+      case "RECEIVED":
+        return "PAID";
       default:
         return 0;
     }
@@ -21,13 +38,13 @@ function CollapsedBase({ data }) {
             Đang Giao Xe
           </Tag>
         );
-      case "PAID":
+      case "RECEIVED":
         return (
           <Tag color="purple" className="font-bold">
             Đã Nhận Xe
           </Tag>
         );
-      case "RECEIVED":
+      case "PAID":
         return (
           <Tag color="green" className="font-bold">
             Đã Trả Xe
@@ -39,6 +56,21 @@ function CollapsedBase({ data }) {
             Đã Huỷ Thuê Xe
           </Tag>
         );
+    }
+  };
+  const submitRate = async (e) => {
+    try {
+      const response = await rateMoto(data.motoOrder.id, e);
+      if (response.data && response.data.status === 200) {
+        setOpen(false);
+        setCheckComment(true);
+        successNoti("Đánh giá thành công");
+        refreshData();
+      } else {
+        errorNoti(response.data.message);
+      }
+    } catch (error) {
+      errorNoti(error);
     }
   };
   const items = useMemo(() => {
@@ -69,23 +101,76 @@ function CollapsedBase({ data }) {
         children: (
           <div>
             {(data.statusOrder === "INPROGRESS" ||
-              data.statusOrder === "PAID") && (
+              data.statusOrder === "RECEIVED") && (
               <QRCode
-                value={`http://localhost:3000/order-confirm?id=${data.id}&&status=${getStatusConfirm()}`}
+                value={`http://localhost:3000/order-confirm?id=${
+                  data.id
+                }&&status=${getStatusConfirm()}`}
               />
+            )}
+            {data.statusOrder === "PAID" && !checkComment && (
+              <Button
+                className="flex items-center font-medium text-[12px] border-primary text-primary"
+                onClick={() => setOpen(true)}
+              >
+                {" "}
+                <span>Đánh giá</span>{" "}
+                <CommentOutlined className="text-primary text-[15px]" />
+              </Button>
+            )}
+            {data.statusOrder === "PAID" && checkComment && (
+              <div>
+                <span className="text-[14px] font-medium flex items-center">
+                  Đánh giá <span className="text-[#d4aa40] font-bold ml-[5px] ">{data.star}</span>
+                  <StarFilled className="text-[#ffca45]" />
+                </span>
+                <p className="text-[#666]">{data.comment}</p>
+              </div>
             )}
           </div>
         ),
       },
     ];
+  }, [checkComment, data]);
+  useEffect(() => {
+    if (data.star === 0) {
+      setCheckComment(false);
+    }
   }, [data]);
   return (
-    <Collapse
-      expandIconPosition="right"
-      className="w-full border-none"
-      style={{ boxShadow: "0 0 3px 3px #eaeaea" }}
-      items={items}
-    />
+    <React.Fragment>
+      <Collapse
+        expandIconPosition="right"
+        className="w-full border-none"
+        style={{ boxShadow: "0 0 3px 3px #eaeaea" }}
+        items={items}
+      />
+      <Modal
+        title={false}
+        footer={false}
+        open={open}
+        onCancel={() => setOpen(false)}
+      >
+        <div className="text-primary font-bold text-[16px] mb-5">
+          Đánh Giá Xe
+        </div>
+        <Form onFinish={submitRate}>
+          <Form.Item
+            name="star"
+            rules={[{ required: true, message: "Không được bỏ trống!" }]}
+          >
+            <Rate />
+          </Form.Item>
+          <Form.Item
+            name="comment"
+            rules={[{ required: true, message: "Không được bỏ trống!" }]}
+          >
+            <TextArea rows={4} />
+          </Form.Item>
+          <Button htmlType="submit">Đánh Giá</Button>
+        </Form>
+      </Modal>
+    </React.Fragment>
   );
 }
 

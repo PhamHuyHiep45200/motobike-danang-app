@@ -14,7 +14,7 @@ export default function DetailPages() {
     const id = router.query.id
     if(id){
       const res = await getMotoById(id);
-      if (res.data.status===200) {
+      if (res.data && res.data.status===200) {
         setDetail(res.data.data);
         loadingEnd();
       } else {

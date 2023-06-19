@@ -37,6 +37,7 @@ function Header() {
   const handleSearch = () => {
     if (search) {
       router.push(`/search?name=${search}`);
+      setSearch('')
     }
   };
 

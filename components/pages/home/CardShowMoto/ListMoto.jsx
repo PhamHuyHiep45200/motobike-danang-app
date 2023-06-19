@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 
 function ListMoto({ type, moto }) {
-  const router=useRouter()
+  const router = useRouter();
   const icon = useMemo(() => {
     switch (type) {
       case "star":
@@ -12,7 +12,7 @@ function ListMoto({ type, moto }) {
       case "rent":
         return <SketchOutlined className="text-[#9d34ff] text-[20px]" />;
       default:
-        return <EyeOutlined className="text-primary text-[20px]" />;
+        return '';
     }
   }, [type]);
   const color = useMemo(() => {
@@ -25,9 +25,19 @@ function ListMoto({ type, moto }) {
         return "#07c2b2";
     }
   }, [type]);
-  const handleRedirect = (id)=>{
-    router.push(`/detail/${id}`)
-  }
+  const numType = (e) => {
+    switch (type) {
+      case "star":
+        return e?.starMoto ?? 0;
+      case "rent":
+        return e?.Order?.length ?? 0;
+      default:
+        return "";
+    }
+  };
+  const handleRedirect = (id) => {
+    router.push(`/detail/${id}`);
+  };
   return (
     <Carousel draggable dots={false}>
       {moto.map((e) => (
@@ -60,14 +70,14 @@ function ListMoto({ type, moto }) {
                       className="text-[12px] ml-[6px] underline underline-offset-2 font-medium"
                       style={{ color: color }}
                     >
-                      100
+                      {numType(e)}
                     </span>
                   </div>
-                  <Rate />
+                  <Rate value={e.starMoto ?? 0}/>
                 </div>
                 <span
                   className="textNameMoto font-bold text-[14px] text-[black]"
-                  onClick={()=>handleRedirect(e.id)}
+                  onClick={() => handleRedirect(e.id)}
                 >
                   {e.name}
                 </span>
