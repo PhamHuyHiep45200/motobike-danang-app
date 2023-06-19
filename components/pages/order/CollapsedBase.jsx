@@ -60,7 +60,8 @@ function CollapsedBase({ data, refreshData }) {
   };
   const submitRate = async (e) => {
     try {
-      const response = await rateMoto(data.motoOrder.id, e);
+      const response = await rateMoto(data.id, e);
+      console.log(data,e)
       if (response.data && response.data.status === 200) {
         setOpen(false);
         setCheckComment(true);
@@ -70,7 +71,7 @@ function CollapsedBase({ data, refreshData }) {
         errorNoti(response.data.message);
       }
     } catch (error) {
-      errorNoti(error);
+      errorNoti('Đã có lỗi xảy ra');
     }
   };
   const items = useMemo(() => {
