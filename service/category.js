@@ -6,3 +6,8 @@ export async function getCategory(params) {
     params
   });
 }
+export async function getCategoryById(id) {
+  return request(`/category/${id}`, {
+    method: "GET",
+  });
+}

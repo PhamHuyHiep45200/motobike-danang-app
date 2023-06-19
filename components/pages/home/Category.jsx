@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 
 function Category({category}) {
   const router = useRouter();
-  //   const handleRedirectLink = (link) => {
-  //     router.push(link);
-  //   };
+    const handleRedirectLink = (id) => {
+      router.push(`/search?category=${id}`);
+    };
   return (
     <div className="border-b-[2px] border-t-[2px] relative border-[#ff8c27]">
       <span className="absolute bottom-[80%] left-[50%] translate-x-[-50%] text-[22px] font-bold text-primary font-serif">
@@ -15,7 +15,7 @@ function Category({category}) {
       <Carousel draggable dots={false} slidesPerRow={4}>
         {category.map((e) => (
           <div key={e.id} className="w-[50px] h-[50px]">
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-center items-center" onClick={()=>handleRedirectLink(e.id)}>
               <Image
                 alt="os"
                 src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${e.thumnail}`}

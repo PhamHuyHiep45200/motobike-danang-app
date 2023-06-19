@@ -1,8 +1,9 @@
 import request from ".";
 
-export async function getMoto() {
+export async function getMoto(params) {
   return request(`/moto`, {
-    method: "GET"
+    method: "GET",
+    params
   });
 }
 

@@ -10,6 +10,7 @@ function Header() {
   const { user } = useContext(CreateContext);
   const router = useRouter();
   const [position, setPosition] = useState(0);
+  const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [openCheckLogin, setOpenCheckLogin] = useState(false);
   const closeModal = () => {
@@ -34,7 +35,9 @@ function Header() {
     onClose();
   };
   const handleSearch = () => {
-    router.push("/search");
+    if (search) {
+      router.push(`/search?name=${search}`);
+    }
   };
 
   useEffect(() => {
@@ -64,7 +67,9 @@ function Header() {
             <div className="flex items-center bg-[#fff] h-[35px] rounded-[15px] overflow-hidden">
               <input
                 placeholder="Tìm kiếm xe"
+                value={search}
                 className="border-none outline-none pl-[15px]"
+                onChange={(e) => setSearch(e.target.value)}
               />
               <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
                 <SearchOutlined
@@ -82,7 +87,7 @@ function Header() {
           height={30}
           preview={false}
           className="cursor-pointer"
-          onClick={()=>redirect('/info-company')}
+          onClick={() => redirect("/info-company")}
         />
       </div>
       <div
