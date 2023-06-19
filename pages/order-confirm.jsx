@@ -11,9 +11,7 @@ function OrderConfirm() {
   const router = useRouter();
   useEffect(() => {
     if (router.query) {
-      setTimeout(()=>{
-        confirmStatusOrder(router.query.id, router.query.status);
-      },1000)
+      confirmStatusOrder(router.query.id, router.query.status);
     }
   }, [router.query]);
   const confirmStatusOrder = async (id, status) => {
@@ -27,7 +25,7 @@ function OrderConfirm() {
       if (res.data && res.data.status === 200) {
         setLoading(false);
         setCheck(true);
-      }else{
+      } else {
         setLoading(false);
         setCheck(false);
       }
