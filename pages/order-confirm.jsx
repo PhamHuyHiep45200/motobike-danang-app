@@ -5,12 +5,11 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 
 function OrderConfirm() {
-  const { user } = useContext(CreateContext);
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    if (router.query) {
+    if (router.query && router.query.id && router.query.status) {
       confirmStatusOrder(router.query.id, router.query.status);
     }
   }, [router.query]);
@@ -18,25 +17,27 @@ function OrderConfirm() {
     setLoading(true);
     try {
       const res = await updateOrderById(id, {
-        idUser: user.id,
+        idUser: +localStorage.getItem("userId"),
         statusOrder: status,
       });
 
       if (res.data && res.data.status === 200) {
-        setLoading(false);
         setCheck(true);
-      } else {
         setLoading(false);
+      } else {
         setCheck(false);
+        setLoading(false);
       }
     } catch (error) {
-      setLoading(true);
+      setLoading(false);
       setCheck(false);
     }
   };
   return (
     <div className="mt-20">
-      {!loading ? (
+      {loading ? (
+        <div className="text-center">loading...</div>
+      ) : (
         <Result
           status={check ? "success" : "warning"}
           title={check ? "Xác nhận thành công" : "Xác nhận thất bại"}
@@ -46,8 +47,6 @@ function OrderConfirm() {
               : ""
           }
         />
-      ) : (
-        <div>loading ....</div>
       )}
     </div>
   );

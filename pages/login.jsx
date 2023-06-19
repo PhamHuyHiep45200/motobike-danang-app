@@ -24,7 +24,7 @@ function Login() {
         errorNoti(response.data.message);
       }
     } catch (error) {
-      errorNoti(error);
+      errorNoti('Đã có lỗi xảy ra');
     }
   };
   return (
