@@ -1,27 +1,32 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 function Chat() {
-  const socket = io("http://localhost:5000");
-  const [messages, setMessages] = useState([]);
+  const [mes, setMes]=useState([])
+  const [socket, setSocket] = useState(null);
+
   useEffect(() => {
-    socket.on("chat", (message) => {
-      // Xử lý tin nhắn từ server
-      setMessages((prevMessages) => [...prevMessages, message]);
+    const newSocket = io('http://localhost:3006/');
+    setSocket(newSocket);
+
+    newSocket.on('message', (data) => {
+      // Nhận tin nhắn mới từ server
+      setMes((prevMessages) => [...prevMessages, data]);
     });
+
     return () => {
-      // Đóng kết nối Socket.IO
-      socket.disconnect();
+      newSocket.disconnect(); // Ngắt kết nối khi component bị hủy
     };
   }, []);
 
   const handleSendMessage = (e) => {
-    socket.emit("send-chat", e);
+    socket.emit('send', e.message); // Gửi tin nhắn lên server
   };
+
   return <div className="mt-[60px]">
     {
-      messages.length && messages.map((e)=>{
+      mes.length && mes.map((e)=>{
         return <div key={e}>{e}</div>
       })
     }
