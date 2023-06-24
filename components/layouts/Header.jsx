@@ -13,6 +13,8 @@ function Header() {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [openCheckLogin, setOpenCheckLogin] = useState(false);
+  const [dotMes, setDotMes]=useState(true)
+
   const closeModal = () => {
     setOpenCheckLogin(false);
   };
@@ -37,7 +39,7 @@ function Header() {
   const handleSearch = () => {
     if (search) {
       router.push(`/search?name=${search}`);
-      setSearch('')
+      setSearch("");
     }
   };
 
@@ -90,6 +92,21 @@ function Header() {
           className="cursor-pointer"
           onClick={() => redirect("/info-company")}
         />
+        <div className="relative cursor-pointer mt-[10px]">
+          <Image
+            src="/image/icon-chat.svg"
+            alt=""
+            width={30}
+            height={30}
+            preview={false}
+            className="cursor-pointer"
+            onClick={() => {
+              redirect("/chat")
+              setDotMes(false)
+            }}
+          />
+          {dotMes&&<span className="absolute top-0 right-0 w-[14px] h-[14px] bg-[red] rounded-full"></span>}
+        </div>
       </div>
       <div
         className="w-[30px] h-[30px] rounded-full overflow-hidden border-[2px] border-primary flex items-center justify-center cursor-pointer"

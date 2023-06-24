@@ -3,7 +3,8 @@ import { FormatNumber } from "@/utils/FormatNumber";
 import { DatePicker, Input, Modal, Select, TimePicker } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 const { TextArea } = Input;
 
@@ -16,9 +17,11 @@ function PopupInfoRent({
   successNoti,
 }) {
   const router = useRouter();
+  const [socket, setSocket] = useState(null);
   const [valueOption, setValueOption] = useState("1");
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+  const [idCard, setIdCard] = useState(null);
   const [address, setAddress] = useState("");
 
   const handleConfirmOrder = async () => {
@@ -29,6 +32,7 @@ function PopupInfoRent({
         receivingAddress: address,
         allMoney: Number(valueOption) * data.rentCost,
         idMoto: data.id,
+        idCard: idCard,
         idUserReceiver: user.id,
       };
       const res = await createOrder(dataOrder);
@@ -36,8 +40,9 @@ function PopupInfoRent({
         successNoti(
           "Đặt thuê xe thành công! Vui lòng vào lịch sử Order để xe, thông tin chi tiết"
         );
-        handleClose()
-        router.push('/order')
+        socket.emit("createOrder", dataOrder);
+        handleClose();
+        router.push("/order");
       } else {
         errorNoti("Đã có lỗi hệ thống");
       }
@@ -60,6 +65,19 @@ function PopupInfoRent({
     }
   };
 
+  useEffect(() => {
+    const newSocket = io("http://localhost:5001/");
+    setSocket(newSocket);
+
+    newSocket.on("message", (data) => {
+      // Nhận tin nhắn mới từ server
+    });
+
+    return () => {
+      newSocket.disconnect(); // Ngắt kết nối khi component bị hủy
+    };
+  }, []);
+
   return (
     <Modal
       title="Thông tin đặt xe"
@@ -80,6 +98,16 @@ function PopupInfoRent({
           Số điện thoại:
         </span>
         <span className="text-[#888] font-bold">{user?.phone}</span>
+      </div>
+      <div className="flex items-center my-[5px]">
+        <span className="text-primary font-medium mr-[10px]">
+          Chứng Minh Thư:
+        </span>
+        <Input
+          value={idCard}
+          onChange={(e) => setIdCard(e.target.value)}
+          size="large"
+        />
       </div>
       <div className="flex items-center my-[5px]">
         <span className="text-primary font-medium mr-[10px]">
