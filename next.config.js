@@ -4,8 +4,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/proxy',
-        destination: 'http://13.211.94.23:5000/', // URL của API trên EC2
+        source: '/api/:path*',
+        destination: 'http://13.211.94.23:5000/:path*', // Thay đổi địa chỉ IP và cổng tại đây
       },
     ];
   },
