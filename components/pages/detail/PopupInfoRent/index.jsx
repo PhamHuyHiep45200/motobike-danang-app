@@ -101,7 +101,7 @@ function PopupInfoRent({
       </div>
       <div className="flex items-center my-[5px]">
         <span className="text-primary font-medium mr-[10px]">
-          Chứng Minh Thư:
+          Căn Cước Công Dân:
         </span>
         <Input
           value={idCard}

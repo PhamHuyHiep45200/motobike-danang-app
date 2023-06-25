@@ -18,7 +18,10 @@ function Chat() {
 
     newSocket.on("chat", (data) => {
       // Nhận tin nhắn mới từ server
-      if(localStorage.getItem("userId") === data.idPersonSend.toString() || localStorage.getItem("userId") === data.idPersonRecipient.toString()){
+      if (
+        localStorage.getItem("userId") === data.idPersonSend.toString() ||
+        localStorage.getItem("userId") === data.idPersonRecipient.toString()
+      ) {
         setMes((prevMessages) => [...prevMessages, data]);
       }
     });
@@ -68,7 +71,10 @@ function Chat() {
                 className="mb-[10px] flex "
               >
                 <span
-                  style={{ background: checkSendUser ? "#07c2b2" : "white", color: checkSendUser ? 'white' :'black' }}
+                  style={{
+                    background: checkSendUser ? "#07c2b2" : "white",
+                    color: checkSendUser ? "white" : "black",
+                  }}
                   className="px-[10px] py-[5px] mr-[10px] ml-[10px] rounded-[4px] text-[16px] block max-w-[250px]"
                 >
                   {e.message}
