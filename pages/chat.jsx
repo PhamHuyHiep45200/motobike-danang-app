@@ -13,7 +13,7 @@ function Chat() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5001/");
+    const newSocket = io(process.env.NEXT_PUBLIC_URL_SOCKET);
     setSocket(newSocket);
 
     newSocket.on("chat", (data) => {
