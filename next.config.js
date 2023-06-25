@@ -7,6 +7,10 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'http://13.211.94.23:5000/:path*', // Thay đổi địa chỉ IP và cổng tại đây
       },
+      {
+        source: '/socket/:path*',
+        destination: 'http://13.211.94.23:5000/socket/:path*',
+      },
     ];
   },
 }
