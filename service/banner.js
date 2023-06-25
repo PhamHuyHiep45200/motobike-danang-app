@@ -1,7 +1,22 @@
 import request from ".";
 
 export async function getBanner() {
-  return request(`/banner`, {
-    method: "GET",
+  const response = await fetch('/api/proxy/banner', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch banner');
+  }
+
+  const data = await response.json();
+  return data;
 }
+
+
+
+
+
