@@ -13,6 +13,16 @@ const nextConfig = {
       },
     ];
   },
+  async server(app) {
+    app.use(
+      '/socket.io',
+      createProxyMiddleware({
+        target: 'http://13.211.94.23:5000',
+        changeOrigin: true,
+        ws: true,
+      })
+    );
+  },
 }
 
 module.exports = nextConfig
