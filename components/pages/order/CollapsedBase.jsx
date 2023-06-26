@@ -92,7 +92,7 @@ function CollapsedBase({ data, refreshData }) {
                 width={150}
                 height={100}
                 alt=""
-                src={`${process.env.NEXT_PUBLIC_URR_BASE}/${
+                src={`${process.env.NEXT_PUBLIC_URL_APP_IMAGE}${
                   JSON.parse(data.motoOrder.listThumbnail)[0]
                 }`}
               />
