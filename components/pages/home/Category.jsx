@@ -18,7 +18,7 @@ function Category({category}) {
             <div className="w-full h-full flex justify-center items-center" onClick={()=>handleRedirectLink(e.id)}>
               <Image
                 alt="os"
-                src={`${process.env.NEXT_PUBLIC_URR_BASE}${e.thumnail}`}
+                src={`${process.env.NEXT_PUBLIC_URR_BASE}/${e.thumnail}`}
                 height={40}
                 width={40}
                 preview={false}

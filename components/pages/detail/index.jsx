@@ -32,7 +32,7 @@ function Detail({ detail }) {
   return (
     <div className="mt-[50px]">
       <Image
-        src={`${process.env.NEXT_PUBLIC_URR_BASE}${image}`}
+        src={`${process.env.NEXT_PUBLIC_URR_BASE}/${image}`}
         height={300}
         width="100%"
         alt=""

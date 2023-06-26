@@ -33,7 +33,7 @@ function Search({ data }) {
             >
               <Image
                 alt=""
-                src={`${process.env.NEXT_PUBLIC_URR_BASE}${
+                src={`${process.env.NEXT_PUBLIC_URR_BASE}/${
                   JSON.parse(e.listThumbnail)[0]
                 }`}
                 wrapperStyle={{ width: "100%" }}

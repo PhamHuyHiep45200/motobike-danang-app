@@ -11,7 +11,7 @@ function Banner({banner}) {
     <Carousel draggable autoplay dots={false}>
       {banner.map((e) => (
         <div key={e.id} onClick={()=>handleRedirectLink(e.link)} className="w-full h-[250px]">
-          <Image alt="" src={`${process.env.NEXT_PUBLIC_URR_BASE}${e.thumbnail}`} height={250} width='100%' preview={false}/>
+          <Image alt="" src={`${process.env.NEXT_PUBLIC_URR_BASE}/${e.thumbnail}`} height={250} width='100%' preview={false}/>
         </div>
       ))}
     </Carousel>
