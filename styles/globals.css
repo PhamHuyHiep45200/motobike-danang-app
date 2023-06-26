@@ -37,3 +37,6 @@
 :where(.css-dev-only-do-not-override-s79zgs).ant-btn.ant-btn-sm{
   background-color: #07c2b2;
 }
+.ant-btn-primary{
+  background-color: #07c2b2 !important;
+}
