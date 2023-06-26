@@ -56,7 +56,7 @@ function ListMoto({ type, moto }) {
             >
               <Image
                 alt=""
-                src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${
+                src={`${process.env.NEXT_PUBLIC_URR_BASE}${
                   JSON.parse(e.listThumbnail)[0]
                 }`}
                 wrapperStyle={{ width: "100%" }}

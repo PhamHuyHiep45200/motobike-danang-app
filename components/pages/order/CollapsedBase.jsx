@@ -92,7 +92,7 @@ function CollapsedBase({ data, refreshData }) {
                 width={150}
                 height={100}
                 alt=""
-                src={`${process.env.NEXT_PUBLIC_URL_IMAGE}${
+                src={`${process.env.NEXT_PUBLIC_URR_BASE}${
                   JSON.parse(data.motoOrder.listThumbnail)[0]
                 }`}
               />
@@ -104,7 +104,7 @@ function CollapsedBase({ data, refreshData }) {
             {(data.statusOrder === "INPROGRESS" ||
               data.statusOrder === "RECEIVED") && (
               <QRCode
-                value={`http://localhost:3000/order-confirm?id=${
+                value={`${process.env.NEXT_PUBLIC_URL_APP}/order-confirm?id=${
                   data.id
                 }&&status=${getStatusConfirm()}`}
               />
