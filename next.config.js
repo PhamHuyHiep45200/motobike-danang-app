@@ -4,27 +4,14 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'http://13.211.94.23:5000/:path*', // Thay đổi địa chỉ IP và cổng tại đây
-        // destination: 'http://localhost:5000/:path*', // Thay đổi địa chỉ IP và cổng tại đây
+        source: '/api/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_URR_BASE}/:path*`, // Thay đổi địa chỉ IP và cổng tại đây
       },
       {
-        source: '/socket/:path*',
-        destination: 'http://13.211.94.23:5000/socket/:path*',
-        // destination: 'http://localhost:5000/socket/:path*',
+        source: '/socket.io',
+        destination: `${process.env.NEXT_PUBLIC_URR_BASE}/socket.io/`,
       },
     ];
-  },
-  async server(app) {
-    app.use(
-      '/socket.io',
-      createProxyMiddleware({
-        target: 'http://13.211.94.23:5000',
-        // target: 'http://localhost:5000',
-        changeOrigin: true,
-        ws: true,
-      })
-    );
   },
 }
 

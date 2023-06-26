@@ -32,6 +32,10 @@ function Chat() {
   }, []);
 
   const handleSendMessage = (e) => {
+    console.log({
+      idPersonSend: user.id,
+      message: e.message,
+    })
     socket.emit("sendChat", {
       idPersonSend: user.id,
       message: e.message,
