@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/api/:path*",
+        source: "/api/:path*",
         destination: `${process.env.NEXT_PUBLIC_URR_BASE}/:path*`, // Thay đổi địa chỉ IP và cổng tại đây
       },
       // {
