@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_URL_IMAGE,
+  baseURL: process.env.NEXT_PUBLIC_URR_BASE,
   // withCredentials: true,
   headers: {
     "Content-Type": "application/json",

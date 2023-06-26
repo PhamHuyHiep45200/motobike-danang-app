@@ -13,7 +13,7 @@ function Chat() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_URL_SOCKET);
+    const newSocket = io(process.env.NEXT_PUBLIC_URR_BASE);
     setSocket(newSocket);
 
     newSocket.on("chat", (data) => {
@@ -44,9 +44,11 @@ function Chat() {
   };
 
   useEffect(() => {
-    ref.current.scrollTo(0, ref.current.scrollHeight);
     getAllMess();
   }, []);
+  useEffect(()=>{
+    ref.current.scrollTop = ref.current.scrollHeight
+  },[mes])
   const getAllMess = async () => {
     const res = await getChatByUser({
       idPersonSend: localStorage.getItem("userId"),
@@ -59,11 +61,12 @@ function Chat() {
     <div className="mt-[60px] px-5">
       <h3 className="font-medium">Chat với admin</h3>
       <div
-        className="min-h-[76vh] max-h-[76vh] overflow-y-auto bg-[#eaeaea] rounded-[4px] flex flex-col justify-end"
+        className="min-h-[76vh] max-h-[76vh] overflow-y-auto bg-[#eaeaea] rounded-[4px]"
         ref={ref}
       >
+        <div className="min-h-[76vh] flex flex-col justify-end">
         {mes.length > 0 &&
-          mes.map((e) => {
+          mes.map((e,i) => {
             const checkSendUser =
               localStorage.getItem("userId") === e.idPersonSend.toString();
             return (
@@ -86,6 +89,7 @@ function Chat() {
               </div>
             );
           })}
+        </div>
       </div>
       <div className="fixed bottom-0 right-0 left-0 h-[60px] px-5">
         <Form onFinish={handleSendMessage} form={form}>
