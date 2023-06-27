@@ -66,7 +66,7 @@ function PopupInfoRent({
   };
 
   useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_URL_SOCKET);
+    const newSocket = io();
     setSocket(newSocket);
 
     newSocket.on("message", (data) => {
