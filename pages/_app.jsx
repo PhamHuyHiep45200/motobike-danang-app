@@ -16,16 +16,22 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const idUser = localStorage.getItem("userId")
-    if (idUser) {
+    if (auth) {
       getMe();
     } else {
       setUser(null);
     }
-  }, []);
+  }, [auth]);
+
+  useEffect(()=>{
+    if(localStorage.getItem("userId")){
+      setAuth(true)
+    }
+  },[])
 
   useEffect(() => {
     router.events.on("routeChangeStart", loadingStart);
@@ -67,25 +73,29 @@ export default function MyApp({ Component, pageProps }) {
     });
   };
 
+  const checkAuth = (value)=>{
+    setAuth(value)
+  }
+
   const errorNoti = (message) => {
     messageApi.open({
       type: "error",
       content: message,
     });
   };
-  const data = useMemo(() => {
-    return {
+  const data =  {
       user,
+      auth,
       setUserData,
       successNoti,
       errorNoti,
       loadingStart,
-      loadingEnd
+      loadingEnd,
+      checkAuth
     };
-  }, [user]);
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
-
+    console.log(user)
   return (
     <CreateContext.Provider value={data}>
       <ConfigProvider

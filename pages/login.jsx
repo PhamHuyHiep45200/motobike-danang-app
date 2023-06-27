@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React, { useContext } from "react";
 
 function Login() {
-  const { errorNoti } = useContext(CreateContext);
+  const { errorNoti, checkAuth } = useContext(CreateContext);
   const router = useRouter();
   const redirectRegister = (path) => {
     router.push("/register");
@@ -18,8 +18,9 @@ function Login() {
         if (localStorage.getItem("userId")) {
           localStorage.removeItem("userId");
         }
-        await localStorage.setItem("userId", response.data.data.id);
+        localStorage.setItem("userId", response.data.data.id);
         router.push("/");
+        checkAuth(true)
       } else {
         errorNoti(response.data.message);
       }

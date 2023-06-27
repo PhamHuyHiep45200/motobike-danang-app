@@ -7,7 +7,7 @@ import ModalCheckLogin from "./ModalCheckLogin";
 import { useRouter } from "next/router";
 
 function Header() {
-  const { user } = useContext(CreateContext);
+  const { user, checkAuth } = useContext(CreateContext);
   const router = useRouter();
   const [position, setPosition] = useState(0);
   const [search, setSearch] = useState("");
@@ -32,6 +32,7 @@ function Header() {
   const redirect = (path) => {
     if (path === "/login") {
       localStorage.clear();
+      checkAuth(false)
     }
     router.push(path);
     onClose();
