@@ -13,7 +13,7 @@ function Chat() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_URR_BASE);
+    const newSocket = io();
     setSocket(newSocket);
 
     newSocket.on("chat", (data) => {
