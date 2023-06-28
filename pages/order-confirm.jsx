@@ -11,7 +11,7 @@ function OrderConfirm() {
   const [mes,setMes]=useState('Xác nhận đơn hàng thành công. Vui long vào lịch sử thuê xe để xác nhận!.')
   const router = useRouter();
   useEffect(() => {
-    if(user){
+    if(localStorage.getItem('userId')){
       if (router.query && router.query.id && router.query.status) {
         confirmStatusOrder(router.query.id, router.query.status);
       }

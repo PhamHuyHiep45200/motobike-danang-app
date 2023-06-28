@@ -42,7 +42,7 @@ function Chat() {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!localStorage.getItem('userId')) {
       router.push(`/login?path=chat`);
     } else {
       getAllMess();
