@@ -2,12 +2,14 @@ import { CreateContext } from "@/context/ContextProviderGlobal";
 import { getChatByUser } from "@/service/message";
 import { SendOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
 function Chat() {
   const { user } = useContext(CreateContext);
   const [form] = Form.useForm();
+  const router = useRouter();
   const ref = useRef();
   const [mes, setMes] = useState([]);
   const [socket, setSocket] = useState(null);
@@ -32,10 +34,6 @@ function Chat() {
   }, []);
 
   const handleSendMessage = (e) => {
-    console.log({
-      idPersonSend: user.id,
-      message: e.message,
-    })
     socket.emit("sendChat", {
       idPersonSend: user.id,
       message: e.message,
@@ -44,11 +42,15 @@ function Chat() {
   };
 
   useEffect(() => {
-    getAllMess();
+    if (!user) {
+      router.push(`/login?path=chat`);
+    } else {
+      getAllMess();
+    }
   }, []);
-  useEffect(()=>{
-    ref.current.scrollTop = ref.current.scrollHeight
-  },[mes])
+  useEffect(() => {
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, [mes]);
   const getAllMess = async () => {
     const res = await getChatByUser({
       idPersonSend: localStorage.getItem("userId"),
@@ -65,30 +67,30 @@ function Chat() {
         ref={ref}
       >
         <div className="min-h-[76vh] flex flex-col justify-end">
-        {mes.length > 0 &&
-          mes.map((e,i) => {
-            const checkSendUser =
-              localStorage.getItem("userId") === e.idPersonSend.toString();
-            return (
-              <div
-                key={e.id}
-                style={{
-                  justifyContent: checkSendUser ? "end" : "start",
-                }}
-                className="mb-[10px] flex "
-              >
-                <span
+          {mes.length > 0 &&
+            mes.map((e, i) => {
+              const checkSendUser =
+                localStorage.getItem("userId") === e.idPersonSend.toString();
+              return (
+                <div
+                  key={e.id}
                   style={{
-                    background: checkSendUser ? "#07c2b2" : "white",
-                    color: checkSendUser ? "white" : "black",
+                    justifyContent: checkSendUser ? "end" : "start",
                   }}
-                  className="px-[10px] py-[5px] mr-[10px] ml-[10px] rounded-[4px] text-[16px] block max-w-[250px]"
+                  className="mb-[10px] flex "
                 >
-                  {e.message}
-                </span>
-              </div>
-            );
-          })}
+                  <span
+                    style={{
+                      background: checkSendUser ? "#07c2b2" : "white",
+                      color: checkSendUser ? "white" : "black",
+                    }}
+                    className="px-[10px] py-[5px] mr-[10px] ml-[10px] rounded-[4px] text-[16px] block max-w-[250px]"
+                  >
+                    {e.message}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="fixed bottom-0 right-0 left-0 h-[60px] px-5">

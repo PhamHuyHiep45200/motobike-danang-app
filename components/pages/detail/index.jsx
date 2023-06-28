@@ -18,7 +18,7 @@ function Detail({ detail }) {
   };
   const handleCheckRent = () => {
     if (!localStorage.getItem("userId")) {
-      router.push(`/login?back=${router.asPath}`);
+      router.push(`/login?path=${router.asPath}`);
     } else {
       handleOpen();
     }

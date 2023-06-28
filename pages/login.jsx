@@ -3,7 +3,7 @@ import { CreateContext } from "@/context/ContextProviderGlobal";
 import { loginUser } from "@/service/user";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 function Login() {
   const { errorNoti, checkAuth } = useContext(CreateContext);
@@ -19,7 +19,11 @@ function Login() {
           localStorage.removeItem("userId");
         }
         localStorage.setItem("userId", response.data.data.id);
-        router.push("/");
+        if(router.query.path){
+          router.push(router.asPath.split('path=')[1])
+        }else{
+          router.push("/");
+        }
         checkAuth(true)
       } else {
         errorNoti(response.data.message);

@@ -61,7 +61,6 @@ function CollapsedBase({ data, refreshData }) {
   const submitRate = async (e) => {
     try {
       const response = await rateMoto(data.id, e);
-      console.log(data,e)
       if (response.data && response.data.status === 200) {
         setOpen(false);
         setCheckComment(true);

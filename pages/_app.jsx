@@ -95,7 +95,6 @@ export default function MyApp({ Component, pageProps }) {
     };
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
-    console.log(user)
   return (
     <CreateContext.Provider value={data}>
       <ConfigProvider

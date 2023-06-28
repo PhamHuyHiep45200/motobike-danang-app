@@ -5,12 +5,19 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 
 function OrderConfirm() {
+  const { user } = useContext(CreateContext);
   const [check, setCheck] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mes,setMes]=useState('Xác nhận đơn hàng thành công. Vui long vào lịch sử thuê xe để xác nhận!.')
   const router = useRouter();
   useEffect(() => {
-    if (router.query && router.query.id && router.query.status) {
-      confirmStatusOrder(router.query.id, router.query.status);
+    if(user){
+      if (router.query && router.query.id && router.query.status) {
+        confirmStatusOrder(router.query.id, router.query.status);
+      }
+    }else{
+      const path = router.asPath
+      router.push(`/login?path=${path}`)
     }
   }, [router.query]);
   const confirmStatusOrder = async (id, status) => {
@@ -25,6 +32,7 @@ function OrderConfirm() {
         setCheck(true);
         setLoading(false);
       } else {
+        setMes(res?.data?.message ?? '');
         setCheck(false);
         setLoading(false);
       }
@@ -41,11 +49,7 @@ function OrderConfirm() {
         <Result
           status={check ? "success" : "warning"}
           title={check ? "Xác nhận thành công" : "Xác nhận thất bại"}
-          subTitle={
-            check
-              ? "Xác nhận đơn hàng thành công. Vui long vào lịch sử thuê xe để xác nhận!."
-              : ""
-          }
+          subTitle={mes}
         />
       )}
     </div>
