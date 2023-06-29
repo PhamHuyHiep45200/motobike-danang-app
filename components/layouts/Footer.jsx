@@ -1,4 +1,4 @@
-import { PhoneOutlined } from "@ant-design/icons";
+import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import React from "react";
 
 function Footer() {
@@ -8,10 +8,16 @@ function Footer() {
         <span className="text-[#777] font-medium text-[14px]">
           Liên hệ với chúng tôi :{" "}
         </span>
+        <div>
         <span className="flex items-center font-bold ml-[10px] text-[#333]">
           <PhoneOutlined />
           .09748265428
         </span>
+        <span className="flex items-center space-x-[6px] font-bold ml-[10px] text-[#333]">
+          <MailOutlined />
+          <span>NghiaPhan@gmail.com</span>
+        </span>
+        </div>
       </div>
     </div>
   );

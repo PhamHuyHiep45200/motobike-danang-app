@@ -8,21 +8,19 @@ function Category({category}) {
       router.push(`/search?category=${id}`);
     };
   return (
-    <div className="border-b-[2px] border-t-[2px] relative border-[#ff8c27]">
-      <span className="absolute bottom-[90%] left-[50%] translate-x-[-50%] text-[22px] font-bold text-primary font-serif">
-        HÃNG XE
-      </span>
-      <Carousel draggable dots={false} slidesPerRow={4}>
+    <div className="relative">
+      <Carousel draggable dots={false} slidesPerRow={3}>
         {category.map((e) => (
-          <div key={e.id} className="w-[50px] h-[50px]">
-            <div className="w-full h-full flex justify-center items-center" onClick={()=>handleRedirectLink(e.id)}>
+          <div key={e.id} className="w-[80px] h-[80px]">
+            <div className="w-full h-full flex flex-col justify-center items-center" onClick={()=>handleRedirectLink(e.id)}>
               <Image
                 alt="os"
                 src={`${process.env.NEXT_PUBLIC_URL_APP_IMAGE}${e.thumnail}`}
-                height={40}
-                width={40}
+                height={60}
+                width={60}
                 preview={false}
               />
+              <span className="text-[12px] font-bold">{e?.name}</span>
             </div>
           </div>
         ))}

@@ -7,7 +7,7 @@ function HomePages({ banner, category, motoNew, motoStar, motoRent }) {
   return (
     <div>
       <Banner banner={banner} />
-      <div className="px-5 py-10">
+      <div className="px-5 py-10 pt-5">
         <Category category={category} />
         {motoStar && motoStar.length ? (
           <div className="mt-5">
