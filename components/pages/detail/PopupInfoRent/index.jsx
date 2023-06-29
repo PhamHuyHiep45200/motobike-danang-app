@@ -23,6 +23,7 @@ function PopupInfoRent({
   const [time, setTime] = useState(null);
   const [idCard, setIdCard] = useState(null);
   const [address, setAddress] = useState("");
+  const [giveCarAddress, setGiveCarAddress] = useState("");
 
   const handleConfirmOrder = async () => {
     if (date && time && address) {
@@ -30,6 +31,8 @@ function PopupInfoRent({
         rentalStartDate: moment(`${date} ${time}`).toISOString(),
         numberDateRental: Number(valueOption),
         receivingAddress: address,
+        giveCarAddress: giveCarAddress,
+        depositPrice: (Number(valueOption) * data.rentCost * data.deposit) / 100,
         allMoney: Number(valueOption) * data.rentCost,
         idMoto: data.id,
         idCard: idCard,
@@ -156,22 +159,52 @@ function PopupInfoRent({
         />
       </div>
       <div className="flex items-center my-[5px]">
-        <span className="text-primary font-medium mr-[10px]">
-          Tổng giá phải trả:
-        </span>
+        <span className="text-primary font-medium mr-[10px]">Tổng giá:</span>
         <span className="text-primary font-bold text-[18px]">
           {FormatNumber(Number(valueOption) * data.rentCost)} đ
         </span>
       </div>
+      <div className="flex items-center my-[5px]">
+        <span className="text-primary font-medium mr-[10px]">Số tiền cọc:</span>
+        <span className="text-primary font-bold text-[18px]">
+          {FormatNumber(
+            (Number(valueOption) * data.rentCost * data.deposit) / 100
+          )}{" "}
+          đ ({data.deposit}%)
+        </span>
+      </div>
+      <div className="flex items-center my-[5px]">
+        <span className="text-primary font-medium mr-[10px]">
+          Số tiền trả khi giao xe:
+        </span>
+        <span className="text-primary font-bold text-[18px]">
+          {FormatNumber(
+            Number(valueOption) * data.rentCost -
+              (Number(valueOption) * data.rentCost * data.deposit) / 100
+          )}{" "}
+          đ
+        </span>
+      </div>
       <div className="my-[5px]">
         <span className="text-[#ff8000] block font-medium mr-[10px]">
-          Địa chỉ nhận hàng:
+          Địa chỉ nhận xe:
         </span>
         <TextArea
           rows={3}
           placeholder="Địa chỉ nhận xe"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+        />
+      </div>
+      <div className="my-[5px]">
+        <span className="text-[#ff8000] block font-medium mr-[10px]">
+          Địa chỉ trả xe:
+        </span>
+        <TextArea
+          rows={3}
+          placeholder="Địa chỉ trả xe"
+          value={giveCarAddress}
+          onChange={(e) => setGiveCarAddress(e.target.value)}
         />
       </div>
       <div className="flex items-center h-[45px] mt-5">

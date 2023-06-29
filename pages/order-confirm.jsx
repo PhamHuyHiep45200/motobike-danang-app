@@ -22,11 +22,12 @@ function OrderConfirm() {
   }, [router.query]);
   const confirmStatusOrder = async (id, status) => {
     setLoading(true);
+    const params = {
+      idUser: +localStorage.getItem("userId"),
+      statusOrder: status,
+    }
     try {
-      const res = await updateOrderById(id, {
-        idUser: +localStorage.getItem("userId"),
-        statusOrder: status,
-      });
+      const res = await updateOrderById(id, params);
 
       if (res.data && res.data.status === 200) {
         setCheck(true);

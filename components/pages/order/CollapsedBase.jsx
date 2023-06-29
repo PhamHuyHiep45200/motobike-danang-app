@@ -1,6 +1,6 @@
 import { CreateContext } from "@/context/ContextProviderGlobal";
 import { rateMoto } from "@/service/moto";
-import { CommentOutlined, StarFilled } from "@ant-design/icons";
+import { CommentOutlined, FileMarkdownOutlined, StarFilled } from "@ant-design/icons";
 import {
   Button,
   Collapse,
@@ -14,11 +14,17 @@ import {
 } from "antd";
 import moment from "moment";
 import React, { useContext, useEffect, useMemo, useState } from "react";
+import Contract from "./Contract";
 const { TextArea } = Input;
 function CollapsedBase({ data, refreshData }) {
-  const { errorNoti, successNoti } = useContext(CreateContext);
+  const { errorNoti, successNoti, user } = useContext(CreateContext);
   const [open, setOpen] = useState(false);
   const [checkComment, setCheckComment] = useState(true);
+  const [openContract, setOpenContract] = useState(false);
+
+  const closeContract = () =>{
+    setOpenContract(false)
+  }
 
   const getStatusConfirm = () => {
     switch (data.statusOrder) {
@@ -70,7 +76,7 @@ function CollapsedBase({ data, refreshData }) {
         errorNoti(response.data.message);
       }
     } catch (error) {
-      errorNoti('Đã có lỗi xảy ra');
+      errorNoti("Đã có lỗi xảy ra");
     }
   };
   const items = useMemo(() => {
@@ -109,19 +115,32 @@ function CollapsedBase({ data, refreshData }) {
               />
             )}
             {data.statusOrder === "PAID" && !checkComment && (
-              <Button
-                className="flex items-center font-medium text-[12px] border-primary text-primary"
-                onClick={() => setOpen(true)}
-              >
-                {" "}
-                <span>Đánh giá</span>{" "}
-                <CommentOutlined className="text-primary text-[15px]" />
-              </Button>
+              <div className="flex items-center space-x-[10px]">
+                <Button
+                  className="flex items-center font-medium text-[12px] !border-[#ee9d11] !text-[#ee9d11]"
+                  onClick={() => setOpenContract(true)}
+                >
+                  {" "}
+                  <span>Hợp đồng</span>{" "}
+                  <FileMarkdownOutlined className="!text-[#ee9d11] text-[15px]" />
+                </Button>
+                <Button
+                  className="flex items-center font-medium text-[12px] border-primary text-primary"
+                  onClick={() => setOpen(true)}
+                >
+                  {" "}
+                  <span>Đánh giá</span>{" "}
+                  <CommentOutlined className="text-primary text-[15px]" />
+                </Button>
+              </div>
             )}
             {data.statusOrder === "PAID" && checkComment && (
               <div>
                 <span className="text-[14px] font-medium flex items-center">
-                  Đánh giá <span className="text-[#d4aa40] font-bold ml-[5px] ">{data.star}</span>
+                  Đánh giá{" "}
+                  <span className="text-[#d4aa40] font-bold ml-[5px] ">
+                    {data.star}
+                  </span>
                   <StarFilled className="text-[#ffca45]" />
                 </span>
                 <p className="text-[#666]">{data.comment}</p>
@@ -170,6 +189,7 @@ function CollapsedBase({ data, refreshData }) {
           <Button htmlType="submit">Đánh Giá</Button>
         </Form>
       </Modal>
+      <Contract data={data} user={user} open={openContract} closeContract={closeContract}/>
     </React.Fragment>
   );
 }
