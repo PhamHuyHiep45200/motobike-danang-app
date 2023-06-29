@@ -43,6 +43,8 @@ function PopupInfoRent({
         successNoti(
           "Đặt thuê xe thành công! Vui lòng vào lịch sử Order để xe, thông tin chi tiết"
         );
+        delete dataOrder.giveCarAddress
+        delete dataOrder.depositPrice
         socket.emit("createOrder", dataOrder);
         handleClose();
         router.push("/order");
