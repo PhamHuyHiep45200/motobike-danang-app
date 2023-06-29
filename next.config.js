@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         source: "/socket.io",
-        destination: "http://13.211.94.23:5000/socket.io/", // Thay thế bằng địa chỉ IP hoặc tên miền của Nest.js server trên EC2
+        destination: `${process.env.NEXT_PUBLIC_URR_BASE}/socket.io/`, // Thay thế bằng địa chỉ IP hoặc tên miền của Nest.js server trên EC2
       },
     ];
   },
@@ -30,7 +30,7 @@ const nextConfig = {
   },
   async serverMiddleware() {
     const socketProxy = createProxyMiddleware('/socket.io', {
-      target: 'http://13.211.94.23:5000/', // Địa chỉ của Socket.IO server
+      target: process.env.NEXT_PUBLIC_URR_BASE, // Địa chỉ của Socket.IO server
       ws: true,
       logLevel: 'silent',
       changeOrigin: true,
