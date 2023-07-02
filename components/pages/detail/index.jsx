@@ -125,9 +125,9 @@ function Detail({ detail }) {
         <div className="bg-[#eaeaea] rounded-[4px] px-[10px] py-[5px] font-semibold text-[18px] text-[#555]">
           ĐÁNH GIÁ XE
         </div>
-        <div className="flex flex-col space-x-[10px] mt-[10px]">
+        <div className="flex flex-col mt-[10px]">
           {detail?.rate?.length>0?detail?.rate?.map((e) => (
-            <div key={e.id} className="flex">
+            <div key={e.id} className="flex mt-[10px]">
               <div>
                 <Avatar>{e?.UserReceiverOrder?.name?.[0]}</Avatar>
               </div>
