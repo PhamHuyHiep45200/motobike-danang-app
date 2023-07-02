@@ -5,6 +5,7 @@ import React, { useContext, useMemo, useState } from "react";
 import PopupInfoRent from "./PopupInfoRent";
 import moment from "moment";
 import { CreateContext } from "@/context/ContextProviderGlobal";
+import { FormatNumber } from "@/utils/FormatNumber";
 
 function Detail({ detail }) {
   const { user, errorNoti, successNoti } = useContext(CreateContext);
@@ -72,6 +73,7 @@ function Detail({ detail }) {
               {detail?.rate?.length ?? 0} đánh giá
             </span>
           </span>
+          <span className="text-[16px] font-bold text-primary block">{FormatNumber(detail?.rentCost)}đ / 1 ngày</span>
           <span className="text-[#333]">
             Số lượng xe có sẵn : {detail.quantityMoto}
           </span>
