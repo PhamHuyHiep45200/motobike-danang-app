@@ -31,7 +31,7 @@ function Detail({ detail }) {
     return "";
   }, [detail, images]);
   return (
-    <div className="mt-[50px]">
+    <div className="mt-[70px]">
       <Image
         src={`${process.env.NEXT_PUBLIC_URL_APP_IMAGE}${image}`}
         height={300}
