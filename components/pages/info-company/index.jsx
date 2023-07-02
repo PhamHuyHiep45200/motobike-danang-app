@@ -46,6 +46,7 @@ function MyComponent() {
               Motobike Đà Nẵng
             </h3>
             <p className="text-[14px] font-medium">Trung tâm cho thuê xe máy</p>
+            <p className="text-[14px] text-[red] mb-[10px] font-medium">Địa chỉ: 80 Cao Bá Quát</p>
             <Image
               alt=""
               width={200}

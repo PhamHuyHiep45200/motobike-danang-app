@@ -2,7 +2,7 @@ import { CreateContext } from "@/context/ContextProviderGlobal";
 import { listHeader } from "@/data/header";
 import { SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { Drawer, Image } from "antd";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import ModalCheckLogin from "./ModalCheckLogin";
 import { useRouter } from "next/router";
 
@@ -13,7 +13,7 @@ function Header() {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [openCheckLogin, setOpenCheckLogin] = useState(false);
-  const [dotMes, setDotMes]=useState(true)
+  const [dotMes, setDotMes] = useState(true);
 
   const closeModal = () => {
     setOpenCheckLogin(false);
@@ -32,7 +32,7 @@ function Header() {
   const redirect = (path) => {
     if (path === "/login") {
       localStorage.clear();
-      checkAuth(false)
+      checkAuth(false);
     }
     router.push(path);
     onClose();
@@ -43,6 +43,10 @@ function Header() {
       setSearch("");
     }
   };
+
+  const checkChat = useMemo(()=>{
+    return !router.asPath.includes('chat')
+  },[router])
 
   useEffect(() => {
     function updatePosition() {
@@ -66,13 +70,22 @@ function Header() {
       }}
     >
       <div className="flex items-center space-x-[10px]">
+        <Image
+          src="/image/a-logo-moto.png"
+          alt=""
+          width={30}
+          height={28}
+          preview={false}
+          className="cursor-pointer rounded-full"
+          onClick={() => redirect("/")}
+        />
         <div>
           <div className="h-[70px] flex items-center">
             <div className="flex items-center bg-[#fff] h-[35px] rounded-[15px] overflow-hidden">
               <input
                 placeholder="Tìm kiếm xe"
                 value={search}
-                className="border-none outline-none pl-[15px]"
+                className="border-none outline-none pl-[15px] w-[120px]"
                 onChange={(e) => setSearch(e.target.value)}
               />
               <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
@@ -93,21 +106,6 @@ function Header() {
           className="cursor-pointer"
           onClick={() => redirect("/info-company")}
         />
-        <div className="relative cursor-pointer mt-[10px]">
-          <Image
-            src="/image/icon-chat.svg"
-            alt=""
-            width={30}
-            height={30}
-            preview={false}
-            className="cursor-pointer"
-            onClick={() => {
-              redirect("/chat")
-              setDotMes(false)
-            }}
-          />
-          {dotMes&&<span className="absolute top-0 right-0 w-[14px] h-[14px] bg-[red] rounded-full"></span>}
-        </div>
       </div>
       <div
         className="w-[30px] h-[30px] rounded-full overflow-hidden border-[2px] border-primary flex items-center justify-center cursor-pointer"
@@ -139,6 +137,12 @@ function Header() {
         </div>
       </Drawer>
       <ModalCheckLogin open={openCheckLogin} closeModal={closeModal} />
+      {checkChat && <div
+        className="fixed bottom-[100px] right-[20px] w-[50px] h-[50px] rounded-full overflow-hidden"
+        onClick={() => redirect("/chat")}
+      >
+        <Image alt="" src="/image/icons8-chat-64.png" preview={false}/>
+      </div>}
     </div>
   );
 }

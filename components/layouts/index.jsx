@@ -18,8 +18,10 @@ function Layout({ children }) {
   return (
     <div>
       <Header />
-      <div className="mb-[100px]">{children}</div>
-      {checkFooter && <Footer />}
+      <div className="min-h-[100vh] flex flex-col justify-between">
+        {children}
+        {checkFooter && <Footer />}
+      </div>
     </div>
   );
 }
