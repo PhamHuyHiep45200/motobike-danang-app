@@ -60,13 +60,13 @@ function Chat() {
     }
   };
   return (
-    <div className="mt-[60px] px-5">
+    <div className="mt-[70px] px-5">
       <h3 className="font-medium">Chat với admin</h3>
       <div
-        className="min-h-[76vh] max-h-[76vh] overflow-y-auto bg-[#eaeaea] rounded-[4px]"
+        className="min-h-[70vh] max-h-[70vh] overflow-y-auto bg-[#eaeaea] rounded-[4px]"
         ref={ref}
       >
-        <div className="min-h-[76vh] flex flex-col justify-end">
+        <div className="min-h-[70vh] flex flex-col justify-end">
           {mes.length > 0 &&
             mes.map((e, i) => {
               const checkSendUser =
