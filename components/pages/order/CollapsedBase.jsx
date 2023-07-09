@@ -114,7 +114,7 @@ function CollapsedBase({ data, refreshData }) {
                 }&&status=${getStatusConfirm()}`}
               />
             )}
-            {data.statusOrder === "PAID" && !checkComment && (
+            {data.statusOrder === "PAID" && (
               <div className="flex items-center space-x-[10px]">
                 <Button
                   className="flex items-center font-medium text-[12px] !border-[#ee9d11] !text-[#ee9d11]"
