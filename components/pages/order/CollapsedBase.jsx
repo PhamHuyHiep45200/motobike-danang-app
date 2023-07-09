@@ -124,6 +124,14 @@ function CollapsedBase({ data, refreshData }) {
                   <span>Hợp đồng</span>{" "}
                   <FileMarkdownOutlined className="!text-[#ee9d11] text-[15px]" />
                 </Button>
+                {!checkComment && <Button
+                  className="flex items-center font-medium text-[12px] border-primary text-primary"
+                  onClick={() => setOpen(true)}
+                >
+                  {" "}
+                  <span>Đánh giá</span>{" "}
+                  <CommentOutlined className="text-primary text-[15px]" />
+                </Button>}
               </div>
             )}
             {data.statusOrder === "PAID" && checkComment && (
