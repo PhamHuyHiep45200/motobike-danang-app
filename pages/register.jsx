@@ -27,6 +27,7 @@ function Register() {
   };
   return (
     <div>
+      <div className="my-5 font-[500] text-center text-[30px]">Register</div>
       <Form onFinish={createAccount}>
         <Form.Item
           name="name"
@@ -83,19 +84,19 @@ function Register() {
         >
           <Input.Password size="large" placeholder="Nhập lại mật khẩu" />
         </Form.Item>
-        <span
-          className="block text-right underline underline-offset-1 text-[white] font-medium text-white"
-          onClick={redirectLogin}
-        >
-          Đăng nhập
-        </span>
         <Button
-          className="w-full !bg-primary !text-[white] !mt-5"
+          className="w-full !bg-primary !text-[white] !my-3"
           size="large"
           htmlType="submit"
         >
           Đăng kí
         </Button>
+        <span
+          className="block text-right underline cursor-pointer underline-offset-1 text-primary font-medium"
+          onClick={redirectLogin}
+        >
+          Đăng nhập
+        </span>
       </Form>
     </div>
   );

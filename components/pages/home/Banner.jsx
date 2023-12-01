@@ -9,10 +9,10 @@ function Banner() {
     router.push(link);
   };
   return (
-    <Carousel draggable autoplay dots={false}>
+    <Carousel draggable autoplay>
       {banner.map((e) => (
-        <div key={e.key} onClick={()=>handleRedirectLink(e.link)} className="w-full h-[250px]">
-          <Image alt="" src={e.thumnail} height={250} width='100%' preview={false}/>
+        <div key={e.key} onClick={()=>handleRedirectLink(e.link)} className="w-full h-[650px]">
+          <Image alt="" src={e.thumnail} height={650} width='100%' preview={false}/>
         </div>
       ))}
     </Carousel>

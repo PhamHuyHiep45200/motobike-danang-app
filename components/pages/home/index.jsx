@@ -1,23 +1,33 @@
 import React from "react";
 import Banner from "./Banner";
 import Category from "./Category";
-import CardShowMoto from "./CardShowMoto";
-import { RadarChartOutlined } from "@ant-design/icons";
+import { Col, Row } from "antd";
+import ProductNew from "./Product/ProductNew";
+import CardBase from "@/components/common/CardBase";
 
 function HomePages() {
   return (
     <div>
       <Banner />
-      <div className="px-5 py-10">
-        <Category />
-        <div className="mt-5">
-          <CardShowMoto type="star" title="Đánh giá cao nhất" />
+      <div className="w-[1280px] m-[auto] px-5 py-10">
+        <div className="my-[30px]">
+          <div className="text-[25px] underline mb-2 font-bold">Sản Phẩm Mới Nhất</div>
+          <ProductNew />
         </div>
-        <div className="mt-5">
-          <CardShowMoto type="rent" title="Nhiều lượt thuê nhất" />
+        <div className="mt-[150px]">
+          <Category />
         </div>
-        <div className="mt-5">
-          <CardShowMoto type="view" title="Nhiều lượt xem nhất" />
+        <div className="mt-[100px]">
+          <div className="text-[25px] underline mb-2 font-bold">Sản Phẩm Khác</div>
+          <Row gutter={[40, 50]}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((e) => {
+              return (
+                <Col span={8} key={e}>
+                  <CardBase hoverAction height={'500px'} />
+                </Col>
+              );
+            })}
+          </Row>
         </div>
       </div>
     </div>

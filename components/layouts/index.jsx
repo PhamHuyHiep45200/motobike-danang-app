@@ -6,8 +6,8 @@ function Layout({ children }) {
   return (
     <div>
       <Header />
-      <div className="mb-[60px]">{children}</div>
-      <Footer/>
+      <div className="mt-[85px]">{children}</div>
+      {/* <Footer /> */}
     </div>
   );
 }

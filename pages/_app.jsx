@@ -6,8 +6,10 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { ConfigProvider, Spin, message } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const antIcon = <LoadingOutlined style={{ fontSize: 34 }} spin />;
+const antIcon = <LoadingOutlined style={{ fontSize: 50 }} spin />;
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();

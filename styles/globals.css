@@ -34,3 +34,24 @@
 :where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-first .anticon, :where(.css-dev-only-do-not-override-s79zgs).ant-rate .ant-rate-star-second .anticon{
   vertical-align: baseline;
 }
+.container-card:hover .image-card{
+  transform: scale(1.4);
+  transition: all 0.4s ease;
+}
+.container-card:not(:hover) .image-card{
+  transform: scale(1);
+  transition: all 0.4s ease;
+}
+.truncate-2 {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.ant-input{
+  border-radius: 20px;
+}
+.ant-input-affix-wrapper{
+  border-radius: 20px;
+}

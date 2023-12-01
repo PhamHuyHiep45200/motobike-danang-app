@@ -1,10 +1,15 @@
 import { CreateContext } from "@/context/ContextProviderGlobal";
 import { listHeader } from "@/data/header";
-import { SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Drawer } from "antd";
+import {
+  SearchOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Badge, Drawer, Form, Input, Tooltip } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import ModalCheckLogin from "./ModalCheckLogin";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function Header() {
   const { user } = useContext(CreateContext);
@@ -26,6 +31,9 @@ function Header() {
   const onClose = () => {
     setOpen(false);
   };
+  const redirectLogin = ()=>{
+    router.push('/login')
+  }
   const redirect = (path) => {
     if (path === "/auth/login") {
       localStorage.clear();
@@ -33,9 +41,9 @@ function Header() {
     router.push(path);
     onClose();
   };
-  const handleSearch =()=>{
-    router.push('/search')
-  }
+  const handleSearch = () => {
+    router.push("/search");
+  };
 
   useEffect(() => {
     function updatePosition() {
@@ -48,56 +56,45 @@ function Header() {
 
   return (
     <div
-      className="flex items-center justify-between fixed top-0 right-0 left-0 px-5 z-[1]"
+      className="fixed top-0 left-0 right-0 z-[1000] bg-[white] flex justify-center py-[20px]"
       style={{
-        height: "var(--header)",
-        backgroundColor: position < 30 && router.pathname ==='/' ? `rgba(0,0,0,0)` : `rgba(0,0,0,0.5)`,
-        transition: "all 0.3s ease",
+        boxShadow: '0 0 10px 5px #999'
       }}
     >
-      <div>
-        <div className="w-[250px] h-[70px] flex items-center">
-          <div className="flex items-center bg-[#fff] h-[35px] rounded-[15px] overflow-hidden">
-            <input
-              placeholder="Tìm kiếm xe"
-              className="border-none outline-none pl-[15px]"
+      <div className="w-[1280px] flex justify-between items-center">
+        <div>
+          <Image width={160} height={200} src="/image/logo.png" alt="logo" />
+        </div>
+        <Form>
+          <Form.Item noStyle>
+            <Input
+              size="large"
+              className="rounded-[20px] min-w-[400px] pl-[15px] pr-[20px]"
+              placeholder="Tìm kiếm ..."
+              suffix={<SearchOutlined className="text-[20px]" />}
             />
-            <div className="w-[40px] flex flex-1 justify-center items-center opacity-[5]">
-              <SearchOutlined className="text-[18px] text-primary" onClick={handleSearch}/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="w-[30px] h-[30px] rounded-full overflow-hidden border-[2px] border-primary flex items-center justify-center cursor-pointer"
-        onClick={showDrawer}
-      >
-        <UserOutlined className="!text-primary" />
-      </div>
-      <Drawer placement="right" width="90%" open={open} onClose={onClose}>
-        <div className="flex flex-col justify-between h-[100%]">
-          <div>
-            {listHeader.map((e) => {
-              return (
-                <div
-                  key={e.path}
-                  onClick={() => redirect(e.path)}
-                  className="flex items-center space-x-[20px] h-[60px] border-b-[1px] border-[#eaeaea] cursor-pointer"
-                >
-                  <div className="text-primary flex items-center text-[20px]">
-                    {e.icon}
-                  </div>
-                  <span className="text-[16px]">{e.name}</span>
+          </Form.Item>
+        </Form>
+        <div className="flex items-center space-x-8">
+          <Badge count={5}>
+            <ShoppingCartOutlined className="text-[25px]" />
+          </Badge>
+          <div className="flex items-center cursor-pointer">
+            <Tooltip
+              className="space-x-1"
+              title={
+                <div className="text-[#333] px-5 py-2 cursor-pointer" onClick={redirectLogin}>
+                  logout
                 </div>
-              );
-            })}
+              }
+              color="white"
+            >
+              <Avatar>Q</Avatar>
+              <span>Quoc</span>
+            </Tooltip>
           </div>
-          <span className="font-medium text-center text-[14px] text-[#ccc]">
-            @Motoby xin chào {user?.name || "bạn"}
-          </span>
         </div>
-      </Drawer>
-      <ModalCheckLogin open={openCheckLogin} closeModal={closeModal} />
+      </div>
     </div>
   );
 }
